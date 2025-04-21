@@ -1,30 +1,27 @@
 [project]
-authors = ["example <example@example.com>"]
-name = "custom_pkg"
+name = "ros2-whisper-bridge"
+version = "0.1.0"
+authors = ["ducroq <jveen1@gmail.com>"]
 channels = ["https://fast.prefix.dev/conda-forge", "https://prefix.dev/robostack-jazzy"]
-platforms = ["linux-64", "win-64"]
-
-[tasks]
-build = "colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release"
-
-[target.linux-64.tasks]
-vscode = 'env -u LD_LIBRARY_PATH code .'
-
-[tasks.start]
-cmd = "ros2 run custom_pkg custom_node"
-depends-on=["build"]
+platforms = ["linux-64"]
 
 [dependencies]
 compilers = ">=1.9.0,<2"
 pkg-config = ">=0.29.2,<0.30"
 ninja = ">=1.12.1,<2"
+ros-jazzy-ros-base = "*"
 ros-jazzy-desktop = "*"
-colcon-common-extensions = "*"
-rosdep = "*"
 conda-build = ">=25.1.2,<26"
 conda-verify = ">=3.4.2,<4"
-rattler-build = "*"
+colcon-common-extensions = "*"
+rosdep = "*"
+git = "*"
 
+#cyclonedds = "*"
+#rattler-build = "*"
+
+[target.linux-64.tasks]
+vscode = 'env -u LD_LIBRARY_PATH code .'
 
 [target.linux-64.dependencies]
 python-devtools = "*"         # Optional but useful
@@ -32,3 +29,30 @@ python = "*"            # This is critical for CMake to find Python
 pybind11 = "*"                # Optional, if you work with bindings
 numpy = "*"
 lttng-ust = "*"
+
+
+[tasks]
+# Create src directory
+create_src = "mkdir -p src"
+
+# Clone ros2_whisper - this avoids complex shell conditionals
+clone_repo = "test -d src/ros2_whisper || git clone https://github.com/ros-ai/ros2_whisper.git src/ros2_whisper"
+
+# Setup combines the steps
+setup = "pixi run create_src && pixi run clone_repo"
+
+# Build with CUDA support
+build = "pixi run setup && colcon build --symlink-install --cmake-args -DGGML_CUDA=On -DCMAKE_BUILD_TYPE=Release --no-warn-unused-cli --event-handlers console_cohesion+"
+
+# Explicitly disable multicast and use unicast for DDS communications
+configure_cyclonedds = "export CYCLONEDDS_URI=file://$PIXI_PROJECT_ROOT/cyclonedds.xml"
+configure_rmw_implementation = "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp"
+configure_ros_network_interface = "export ROS_NETWORK_INTERFACE=tailscale0"
+configure_ros_ip = "export ROS_IP=$(tailscale ip -4)"
+configure_ros_domain_id = "export ROS_DOMAIN_ID=0"
+configure = {depends-on = ["configure_cyclonedds", "configure_rmw_implementation", "configure_ros_network_interface", "configure_ros_ip", "configure_ros_domain_id"]}
+
+# Run the custom launch file
+source = "source install/setup.bash"
+start = {cmd = "ros2 launch whisper_bridge whisper_bridge.launch.py", depends-on=["build", "configure", "source"]}
+

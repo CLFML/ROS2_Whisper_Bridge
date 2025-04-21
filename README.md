@@ -14,18 +14,18 @@ See the [Getting started guide](https://clfml.github.io/ROS2_Whisper_Bridge/usag
 ### Binary distribution
 For Debian there are binary distributions of this library in the releases section of this repository.
 
-<!-- ### Pixi/Conda packages
+### Pixi/Conda packages
 These can be found in our own conda channel:
 ```
 "https://clfml.github.io/conda_ros2_jazzy_channel/"
 ```
-There are packages available for Windows & Linux.
-For more details see the [wiki](https://clfml.github.io/ROS2_whisper_bridge/ros2_pixi_build_linux_windows/) -->
+There are packages available for Linux only.
+For more details see the [wiki](https://clfml.github.io/ROS2_whisper_bridge/ros2_pixi_build_linux/)
 
 ## TODO
 
 ### Docs
-The docs files to change are the overview.md, implementation.md, ros2_pixi_build_linux_windows.md and usage_with_native_linux.md. 
+The docs files to change are the overview.md, implementation.md, ros2_pixi_build_linux.md and usage_with_native_linux.md. 
 
 ## How to add the conda packages to the CLFML conda channel (CLFML members only!)?
 See the instructions in the [CLFML conda channel repo](https://github.com/CLFML/conda_ros2_jazzy_channel).

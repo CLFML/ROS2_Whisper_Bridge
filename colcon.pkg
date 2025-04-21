@@ -1,6 +1,8 @@
 {
-    "name": "custom_pkg",
+    "name": "whisper_bridge",
     "cmake-args":[
-        "-G Ninja"
-    ]
+        "-G Ninja",
+        "-DGGML_CUDA=On"
+    ],
+    "packages-up-to": ["audio_bridge"]
 }

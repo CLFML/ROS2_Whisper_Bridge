@@ -12,12 +12,6 @@ Pixi makes cross-platform ROS 2 development easy. You can build and run both cap
 curl -fsSL https://pixi.sh/install.sh | bash
 ```
 
-**Windows** (PowerShell):
-
-```powershell
-powershell -ExecutionPolicy ByPass -c "irm -useb https://pixi.sh/install.ps1 | iex"
-```
-
 ---
 
 ## 🚀 Clone & Build Project
@@ -29,14 +23,16 @@ pixi install
 pixi run build
 ```
 
+cd ROS2_whisper_bridge
+pixi install
+pixi run setup   # This clones ros2_whisper
+pixi run build   # This builds everything with CUDA support
+
 Or launch VSCode with the environment:
 
 ```bash
 pixi run vscode
 ```
-
-> ✅ **Note (Windows):** Always build in **Release** or **RelWithDebInfo**, not Debug!  
-> *(Ctrl+Shift+P → "CMake: Select Variant")*
 
 ---
 

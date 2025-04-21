@@ -1,0 +1,6 @@
+{
+    "name": "custom_pkg",
+    "cmake-args":[
+        "-G Ninja"
+    ]
+}

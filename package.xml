@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>custom_pkg</name>
+  <name>whisper_bridge</name>
   <version>3.11.5</version>
   <description>
-  Custom Pkg template
+  ROS 2 bridge to Whisper for distributed speech transcription across lightweight clients and GPU-accelerated servers.
   </description>
 
-  <maintainer email="example@example.com">example</maintainer>
+  <maintainer email="jveen1@gmail.com">duCroq</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

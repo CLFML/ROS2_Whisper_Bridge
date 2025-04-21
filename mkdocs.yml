@@ -1,4 +1,4 @@
-site_name: ROS2_Package_Template
+site_name: ROS2_Whisper_Bridge
 extra_css:
 - assets/stylesheets/logo.css
 theme:

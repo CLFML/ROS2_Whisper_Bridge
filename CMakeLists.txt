@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1...3.14)
-project(custom_pkg C CXX)
+project(whisper_bridge C CXX)
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
